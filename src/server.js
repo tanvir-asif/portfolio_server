@@ -13,7 +13,8 @@ const categoryRoutes = require('./routes/categories');
 const skillRoutes   = require('./routes/skills');
 const messageRoutes = require('./routes/messages');
 const userRoutes    = require('./routes/users');
-const sitemapRoutes = require('./routes/sitemap');
+const sitemapRoutes   = require('./routes/sitemap');
+const analyticsRoutes = require('./routes/analytics');
 
 const app = express();
 
@@ -58,6 +59,7 @@ app.use('/api/categories', categoryRoutes);
 app.use('/api/skills',     skillRoutes);
 app.use('/api/messages',   messageLimiter, messageRoutes);
 app.use('/api/users',      userRoutes);
+app.use('/api/analytics',  analyticsRoutes);
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
