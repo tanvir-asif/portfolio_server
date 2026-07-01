@@ -1,22 +1,15 @@
-const nodemailer = require('nodemailer');
+const { Resend } = require('resend');
 
-const transporter = nodemailer.createTransport({
-  host: 'smtp.gmail.com',
-  port: 465,
-  secure: true,
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS, // Gmail App Password (16 chars, no spaces)
-  },
-});
+const resend = new Resend(process.env.RESEND_API_KEY);
+const TO = 'tanvirasif1902@gmail.com';
 
 async function sendContactNotification({ name, email, subject, body }) {
-  if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) return; // silently skip if not configured
+  if (!process.env.RESEND_API_KEY) return;
 
-  await transporter.sendMail({
-    from: `"Portfolio Contact" <${process.env.EMAIL_USER}>`,
-    to: process.env.EMAIL_USER,
-    replyTo: email,
+  await resend.emails.send({
+    from: 'Portfolio Contact <onboarding@resend.dev>',
+    to: TO,
+    reply_to: email,
     subject: `New message from ${name}: ${subject}`,
     html: `
       <div style="font-family:sans-serif;max-width:560px;margin:0 auto;padding:24px;background:#f9f9f9;border-radius:8px">
