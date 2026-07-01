@@ -17,6 +17,9 @@ const sitemapRoutes = require('./routes/sitemap');
 
 const app = express();
 
+// Trust Render's proxy so rate limiters see the real client IP, not the internal load balancer IP
+app.set('trust proxy', 1);
+
 // Security headers
 app.use(helmet());
 
@@ -35,10 +38,10 @@ const authLimiter = rateLimit({
   message: { error: 'Too many login attempts. Please try again later.' },
 });
 
-// Rate limiting: 5 messages per hour on the contact form
+// Rate limiting: 20 messages per hour on the contact form
 const messageLimiter = rateLimit({
   windowMs: 60 * 60 * 1000,
-  max: 5,
+  max: 20,
   standardHeaders: true,
   legacyHeaders: false,
   message: { error: 'Too many messages sent. Please try again in an hour.' },
