@@ -1,4 +1,5 @@
 const Message = require('../models/Message');
+const { sendContactNotification } = require('../lib/mailer');
 
 // Public — contact form submission
 async function createMessage(req, res) {
@@ -7,6 +8,12 @@ async function createMessage(req, res) {
     return res.status(400).json({ error: 'All fields are required.' });
   }
   const message = await Message.create({ name, email, subject, body });
+
+  // Send email notification — fire and forget, never block the response
+  sendContactNotification({ name, email, subject, body }).catch(err =>
+    console.error('Email notification failed:', err.message)
+  );
+
   res.status(201).json(message);
 }
 
