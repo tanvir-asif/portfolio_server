@@ -1,10 +1,10 @@
 const { Resend } = require('resend');
 
-const resend = new Resend(process.env.RESEND_API_KEY);
 const TO = 'tanvirasif1902@gmail.com';
 
 async function sendContactNotification({ name, email, subject, body }) {
   if (!process.env.RESEND_API_KEY) return;
+  const resend = new Resend(process.env.RESEND_API_KEY);
 
   await resend.emails.send({
     from: 'Portfolio Contact <onboarding@resend.dev>',
