@@ -16,12 +16,22 @@ const heroSchema = new mongoose.Schema(
   { _id: false }
 );
 
+const seoSchema = new mongoose.Schema(
+  {
+    homeTitle: String,
+    homeDescription: String,
+    homeOgImage: String,
+  },
+  { _id: false }
+);
+
 // Singleton — only ever one document, identified by key: 'main'
 const siteContentSchema = new mongoose.Schema(
   {
     key: { type: String, default: 'main', unique: true },
     hero: heroSchema,
     aboutBio: String,
+    seo: seoSchema,
   },
   { timestamps: true }
 );

@@ -36,4 +36,10 @@ async function getPostBySlug(req, res) {
   res.json(post);
 }
 
-module.exports = { getPosts, getPostBySlug, createPost, updatePost, deletePost };
+async function getPostById(req, res) {
+  const post = await Post.findById(req.params.id).lean();
+  if (!post) return res.status(404).json({ error: 'Post not found' });
+  res.json(post);
+}
+
+module.exports = { getPosts, getPostBySlug, getPostById, createPost, updatePost, deletePost };

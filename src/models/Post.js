@@ -10,6 +10,9 @@ const postSchema = new mongoose.Schema(
     excerpt: { type: String },
     body: [{ type: String }],       // array of paragraphs
     status: { type: String, enum: ['published', 'draft'], default: 'draft' },
+    seoTitle: { type: String, trim: true },
+    seoDescription: { type: String, trim: true },
+    seoKeyword: { type: String, trim: true },
   },
   { timestamps: true }
 );

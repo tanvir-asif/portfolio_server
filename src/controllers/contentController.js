@@ -6,10 +6,14 @@ async function getContent(req, res) {
 }
 
 async function updateContent(req, res) {
-  const { hero, aboutBio } = req.body;
+  const { hero, aboutBio, seo } = req.body;
   const doc = await SiteContent.findOneAndUpdate(
     { key: 'main' },
-    { ...(hero && { hero }), ...(aboutBio !== undefined && { aboutBio }) },
+    {
+      ...(hero && { hero }),
+      ...(aboutBio !== undefined && { aboutBio }),
+      ...(seo !== undefined && { seo }),
+    },
     { new: true, upsert: true, runValidators: true }
   );
   res.json(doc);

@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { getPosts, getPostBySlug, createPost, updatePost, deletePost } = require('../controllers/postController');
+const { getPosts, getPostBySlug, getPostById, createPost, updatePost, deletePost } = require('../controllers/postController');
 const requireAuth = require('../middleware/requireAuth');
 const requireAdmin = require('../middleware/requireAdmin');
 
@@ -17,6 +17,7 @@ router.get('/:slug', (req, res, next) => {
   next();
 }, getPostBySlug);
 
+router.get('/id/:id', requireAuth, getPostById);
 router.post('/', requireAuth, requireAdmin, createPost);
 router.put('/:id', requireAuth, requireAdmin, updatePost);
 router.delete('/:id', requireAuth, requireAdmin, deletePost);
