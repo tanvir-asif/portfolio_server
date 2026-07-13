@@ -24,6 +24,7 @@ const projectSchema = new mongoose.Schema(
     liveUrl: { type: String },
     githubUrl: { type: String },
     status: { type: String, enum: ['published', 'draft'], default: 'published' },
+    featured: { type: Boolean, default: false },
   },
   { timestamps: true }
 );
